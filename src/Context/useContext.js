@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react"
 import axios from "axios"
 
-const URL = "http://localhost:3500/api/v1/";
+const URL = "https://pettycash-manager-ivlp.onrender.com/api/v1/";
 
 
 const Context = React.createContext()
