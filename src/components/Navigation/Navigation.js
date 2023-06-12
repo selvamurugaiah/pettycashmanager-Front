@@ -16,6 +16,23 @@ function Navigation({active,setActive}) {
             <div className='text'>
                 <h2>Selva</h2>
                 <p>Your Money</p>
+
+            {
+                /*
+
+                  {
+                
+                data ? <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <img src="./man.png" style={{ width: "200px", marginTop: 20 }} alt="" />
+                    <h1>User Email:{logindata ? logindata.ValidUserOne.email : ""}</h1>
+                </div> : <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "100vh" }}>
+                    Loading... &nbsp;
+                    <CircularProgress />
+                </Box>    
+            }
+
+                */
+            }
             </div>
         </div>
         <ul className='menu-items'>
@@ -30,10 +47,7 @@ function Navigation({active,setActive}) {
                 </li>
             })}
         </ul>
-        <div className='buttom-nav'>
-            <li>{signout} Sign Out</li>
-
-        </div>
+      
     </NavStyled>
   )
 }

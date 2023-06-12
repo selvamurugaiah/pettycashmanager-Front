@@ -11,6 +11,7 @@ export const Provider = ({children}) => {
     const [incomes,setIncomes]= useState([])
     const [expenses,setExpenses]=useState([])
     const [error,setError]=useState(null)
+    const [logindata,setLoginData] = useState("");
 
     //calculate incomes
 
@@ -103,7 +104,9 @@ export const Provider = ({children}) => {
             totalBalance,
             transactionHistory,
             error,
-            setError
+            setError,
+            logindata,
+            setLoginData
 
         }}>
             {children}

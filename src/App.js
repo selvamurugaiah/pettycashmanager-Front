@@ -1,72 +1,83 @@
+import { useEffect, useState } from "react";
+import { useGlobalContext } from "./Context/useContext";
+import { Routes, Route, useNavigate } from "react-router-dom"
+import Login from "./components/Login/Login";
+import DashboardLogin from "./components/Login/Dashboard";
+import Header from "./components/Login/Header";
+import RegisterPage from "./components/Login/Register";
+import PasswordResetPage from "./components/Login/PasswordReset";
+import ForgotPasswordPage from "./components/Login/ForgotPassword";
+import { Box, CircularProgress } from "@mui/material";
+import ErrorPage from "./components/Login/Error";
 
-import styled from 'styled-components';
-
-import { MainLayout } from './styles/Loyout';
-import bg from './img/bg.jpg'
-import Orb from './components/Orb/orb';
-import Navigation from './components/Navigation/Navigation';
-import React, { useMemo, useState } from 'react';
-import Dashboard from './components/Dashboard/dashboard';
-import Expenses from './components/Expenses/expenses';
-import Incomes from './components/Incomes/incomes';
-import { useGlobalContext } from './Context/useContext';
 
 
 function App() {
-  const [active,setActive] = React.useState(1)
 
-     const global = useGlobalContext()
-     console.log(global)
+  const [data, setData] = useState(false);
 
-  const displayData =()=>{
-      switch(active){
-        case 1:
-          return <Dashboard/>
-        case 2:
-          return <Dashboard/>
-        case 3:
-          return <Incomes/> 
-        case 4:
-          return <Expenses/>
-        default:
-          return <Dashboard/>     
+  const { logindata, setLoginData } = useGlobalContext
+
+
+  const history = useNavigate();
+
+  const DashboardValid = async () => {
+    let token = localStorage.getItem("usersdatatoken");
+
+    const res = await fetch("https://password-reset-11vu.onrender.com/validuser", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": token
       }
+    });
+
+    const data = await res.json();
+
+    if (data.status == 401 || !data) {
+      console.log("user not valid");
+    } else {
+      console.log("user verify");
+      setLoginData(data)
+      history("/dash");
+    }
   }
 
-  const memo = useMemo(()=>{
-    return <Orb/>
-  },[])
-  return (
-   
-      <AppStyled bg= {bg} className='App'>
-        {memo}
-        <MainLayout>
-         <Navigation active={active} setActive={setActive}/>
-         <main>
-           {displayData()}
-         </main>
-        </MainLayout>
-      </AppStyled>
+  useEffect(() => {
+    setTimeout(()=>{
+      DashboardValid();
+      setData(true)
+    },2000)
 
+  }, [])
+
+  return (
+    <>
+      {
+        data ? (
+          <>
+            <Header/>
+
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/dash" element={<DashboardLogin />} />
+              <Route path="/password-reset" element={<PasswordResetPage/>} />
+              <Route path="/forgotpassword/:id/:token" element={<ForgotPasswordPage/>} />
+              <Route path="*" element={<ErrorPage />} />
+            </Routes>
+          </>
+
+        ) : <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "100vh" }}>
+          Loading... &nbsp;
+          <CircularProgress/>
+        </Box>
+      }
+
+
+    </>
   );
 }
 
-const AppStyled = styled.div`
-    height:100vh;
-    background-image: url(${props => props.bg})
-    position: relative;
-    main{
-      flex:1;
-      background:rgba(252,246,249,0.78);
-      border:3px solid #FFFFFF;
-      backdrop-filter:blur(4.5px);
-      border-radius:32px;
-      overfolw-x:hidden;
-      &::-webkit-scrollbar{
-        width:0;
-      }
-
-    }
-`;
-
 export default App;
+
