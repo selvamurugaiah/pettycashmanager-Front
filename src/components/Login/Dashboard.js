@@ -112,6 +112,14 @@ const AppStyled = styled.div`
       &::-webkit-scrollbar{
         width:0;
       }
+      @media screen and (max-width:720px){
+       scale:1;
+       position:relative;
+       right:50px;
+      
+         
+    }
+   
 
     }
 `;

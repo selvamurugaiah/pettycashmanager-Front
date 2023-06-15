@@ -47,6 +47,20 @@ function Expense() {
 const ExpenseStyled = styled.div`
     display:flex;
     overflow:auto;
+    @media screen and (max-width:720px){
+      scale:0.6;
+      position:relative;
+      right:110px;
+      bottom:170px;
+     
+   }
+   @media screen and (max-width:1024px){
+    scale:0.6;
+    position:relative;
+    right:70px;
+    bottom:170px;
+   
+ }
     .total-income{
       display:flex;
       justify-content:center;
@@ -59,6 +73,18 @@ const ExpenseStyled = styled.div`
       margin:1rem 0;
       font-size:2rem;
       gap:.5rem;
+      @media screen and (max-width:720px){
+        scale:0.5;
+        position:relative;
+       
+     }
+     @media screen and (max-width:1024px){
+      scale:0.7;
+      position:relative;
+      right:50px;
+    
+     
+   }
     }
     span{
       font-size:2.5rem;
@@ -68,8 +94,28 @@ const ExpenseStyled = styled.div`
     .income-content{
          display:flex;
          gap:2rem;
+         @media screen and (max-width:1024px){
+          scale:1;
+          display:flex;
+          flex-direction:column;
+          position:relative;
+          
+         
+       }
          .incomes{
           flex:1;
+          @media screen and (max-width:720px){
+            scale:0.7;
+            position:relative;
+            bottom:50px;
+            right:80px
+        }
+        @media screen and (max-width:1250px){
+         scale:0.7;
+         position:relative;
+         bottom:50px;
+         right:80px
+     }
          }
     }
 `;

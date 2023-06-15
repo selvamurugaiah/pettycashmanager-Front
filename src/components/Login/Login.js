@@ -84,6 +84,8 @@ const Login = () => {
                     <div className="form_heading">
                         <h1>Welcome Back, Log In</h1>
                         <p>Hi, we are you glad you are back. Please login.</p>
+                        <p>Email:monkey@gmail.com</p>
+                        <p>password:monkey@123</p>
                     </div>
 
                     <form>

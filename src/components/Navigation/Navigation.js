@@ -3,18 +3,21 @@ import { menuItems } from '../../utils/menuItems';
 import styled from 'styled-components';
 import { signout } from '../../utils/icon';
 import avatar from '../../img/avatar.jpg'
+import { useGlobalContext } from '../../Context/useContext';
 
 
 
 
 function Navigation({active,setActive}) {
+
+    const {logindata} = useGlobalContext()
   
   return (
     <NavStyled>
         <div className='user-con'>
             <img src= {avatar} alt=''/>
             <div className='text'>
-                <h2>Selva</h2>
+                <h2>{logindata ? logindata.ValidUserOne.email.slice(0,6) : ""}</h2>
                 <p>Your Money</p>
 
             {
@@ -64,6 +67,22 @@ display: flex;
 flex-direction: column;
 justify-content: space-between;
 gap: 2rem;
+@media screen and (max-width:720px){
+    flex-direction:row;
+    position:relative;
+    right:50px;
+    bottom:70px;
+    width:80px;
+    scale:0.8;
+    height:720px;
+     
+}
+@media screen and(min-width:720px) and (max-width:1024px){
+    position:relative;
+    right:50px;
+    width:200px;    
+}
+
 .user-con{
     height: 100px;
     display: flex;
@@ -85,12 +104,32 @@ gap: 2rem;
     p{
         color: rgba(34, 34, 96, .6);
     }
+    @media screen and (max-width:720px){
+       display:none;
+         
+    }
+    @media screen and (max-width:1024px){
+      scale:0.7;
+      position:relative;
+      right:10px;
+          
+     }
+
+
+  
 }
 
 .menu-items{
     flex: 1;
     display: flex;
     flex-direction: column;
+    @media screen and (max-width:720px){
+      span{
+        display:none;
+      }
+         
+    }
+    
     li{
         display: grid;
         grid-template-columns: 40px auto;
@@ -102,11 +141,14 @@ gap: 2rem;
         color: rgba(34, 34, 96, .6);
         padding-left: 1rem;
         position: relative;
+
+        
         i{
             color: rgba(34, 34, 96, 0.6);
             font-size: 1.4rem;
             transition: all .4s ease-in-out;
         }
+        
     }
 }.active{
     color: rgba(34, 34, 96, 1) !important;
@@ -124,8 +166,11 @@ gap: 2rem;
         border-radius: 0 10px 10px 0;
     }
 
-
-}
+    @media screen and (max-width:720px){
+        flex-direction:column;
+        width:100%;
+   
+    }
 `;
 
 
